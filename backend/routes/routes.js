@@ -30,6 +30,7 @@ const agregarPost = async (titulo, img, descripcion) => {
 
 
 // Ruta para obtener información desde el JSON
+router.use(cors());
 
 router.get('/getInfo', async(req, res) => {
 
@@ -41,6 +42,12 @@ console.error('Error al obtener informacion:', error);
 res.status(500).json({error: 'Error al obtener informacion'})
 }
 });
+
+
+
+
+
+
 
 
 module.exports = router;
