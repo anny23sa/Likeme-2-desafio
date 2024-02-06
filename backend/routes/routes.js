@@ -2,6 +2,9 @@ const express = require("express");
 const router = express.Router();
 const pool = require('../config/db.js');
 const cors = require('cors');
+const {updatePost, deletePost} = require ('../consultas/consultas')
+
+
 // pregunta 3
 router.get("/posts", async (req, res) => {
     const posts = await obtenerPosts()
@@ -43,11 +46,28 @@ res.status(500).json({error: 'Error al obtener informacion'})
 }
 });
 
+router.put("/post/:id", async(req, res)=>{
+    const id = req.params.id
+    const {titulo, img, descripcion} = req.body
+    await updatePost(titulo, img, descripcion,id)
+    res.send("Pelicula actualizada")
+})
 
+router.delete("/post/:id", async (req, res)=>{
+    const {id}=req.params+await deletePost(id)
+    await deletePost(id)
+    res.send('Pelicula eliminada con exito')
 
+})
 
 
 
 
 
 module.exports = router;
+
+
+
+
+
+
