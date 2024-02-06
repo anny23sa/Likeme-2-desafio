@@ -1,7 +1,7 @@
 const express = require("express");
-const router = express.Router()
-const pool = require('../config/db.js')
-
+const router = express.Router();
+const pool = require('../config/db.js');
+const cors = require('cors');
 // pregunta 3
 router.get("/posts", async (req, res) => {
     const posts = await obtenerPosts()
