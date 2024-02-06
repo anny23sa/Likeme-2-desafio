@@ -12,11 +12,4 @@ const pool = new Pool({
 });
 
 
-/* const getDate = async () => {
-  const result = await pool.query("select NOW()");
-  console.log(result.rows);
-};
-
-getDate(); */
-
 module.exports = pool;
