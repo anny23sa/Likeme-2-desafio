@@ -1,4 +1,5 @@
 const pool =require('../config/db')
+const {updatePost, deletePost} =require('..consultas/consultas');
 
 //update (actualizar)
 

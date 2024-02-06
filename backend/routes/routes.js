@@ -11,9 +11,9 @@ router.get("/posts", async (req, res) => {
     res.json(posts)
 })
 const obtenerPosts = async () => {
-    const { rows } = await pool.query("SELECT * FROM posts")
-    console.log(rows)
-    return rows
+    const result = await pool.query("SELECT * FROM posts")
+    console.log(result)
+    return result
 }
     
 
@@ -54,8 +54,8 @@ router.put("/post/:id", async(req, res)=>{
 })
 
 router.delete("/post/:id", async (req, res)=>{
-    const {id}=req.params+await deletePost(id)
-    await deletePost(id)
+    const {id}=req.params+await deletePost(id);
+    await deletePost(id);
     res.send('Pelicula eliminada con exito')
 
 })
