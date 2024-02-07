@@ -11,20 +11,20 @@ router.get("/posts", async(req, res) => {
 
 router.post("/posts",async(req, res)=> {
     const {titulo, img, descripcion} = req.body
-    const consulta = await createPost(titulo, img, descripcion);
+    const consulta = await createPost(titulo, img, descripcion, likes);
     res.send("Post agregado")
 }); 
 
 
 router.post("/posts", async (req, res) => {
-    const { titulo, img, descripcion } = req.body
-    await agregarPost(titulo, img, descripcion)
+    const { titulo, img, descripcion, likes } = req.body
+    await agregarPost(titulo, img, descripcion, likes)
     res.send("Post agregado con éxito")
 })
 
-const agregarPost = async (titulo, img, descripcion) => {
-    const consulta = "INSERT INTO post(titulo, img, descripcion) values ($1, $2, $3)"
-    const values = [titulo, img, descripcion]
+const agregarPost = async (titulo, img, descripcion, likes) => {
+    const consulta = "INSERT INTO post(titulo, img, descripcion, likes) values ($1, $2, $3, $4)"
+    const values = [titulo, img, descripcion, likes]
     const result = await pool.query(consulta, values)
     console.log("Post agregado")
 }
@@ -32,7 +32,7 @@ const agregarPost = async (titulo, img, descripcion) => {
 router.put("/posts/:id", async(req, res)=>{
     const id = req.params.id
     const {titulo, img, descripcion, likes} = req.body
-    await updatePost(titulo, img, descripcion,id);
+    await updatePost(titulo, img, descripcion, likes, id);
     res.send("Pelicula actualizada")
 })
 

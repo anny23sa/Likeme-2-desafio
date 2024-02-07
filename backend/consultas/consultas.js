@@ -28,10 +28,10 @@ const getPosts = async()=>{
 
 //update (actualizar)
 
-const updatePost = async(titulo, img, descripcion, id)=>{
+const updatePost = async(titulo, img, descripcion, likes, id)=>{
     try {
-        const consulta = "UPDATE posts SET titulo =$1, img =$2, descripcion =$3 WHERE id =$4";
-        const value =[titulo, img, descripcion, id];
+        const consulta = "UPDATE posts SET titulo =$1, img =$2, descripcion =$3, likes =$4 WHERE id =$5";
+        const value =[titulo, img, descripcion, likes, id];
         const result =await pool.query(consulta, value);
         console.log(result)
     }catch(error){
