@@ -1,10 +1,12 @@
 const pool =require('../config/db')
 
+
+
 //create (get)
-const createPost = async(titulo, img, descripcion)=>{
+const createPost = async(titulo, img, descripcion, likes)=>{
     try {
         const consulta = "INSERT INTO posts values(DEFAULT, $1, $2, $3)";
-        const values = [titulo, img, descripcion];
+        const values = [titulo, img, descripcion, likes];
         const {rows} = await pool.query(consulta, values);
     } catch (error) {
         console.log(error)
