@@ -1,47 +1,17 @@
-const express = require("express");
-const router = express.Router();
-const pool = require('../config/db.js');
-const cors = require('cors');
-const {createPost, getPosts, updatePost, deletePost} = require('../consultas/consultas.js')
+const { getPostController } = require('../controller');
 
-router.get("/posts", async(req, res) => {
-    const posts =await getPosts();
-    res.json(posts)
-})
+const { createNewPostController } = require('../controller');
+const { createNewPostMiddleware } = require('../middleware');
+const { updatePostController } = require('../controller');
+const { updatePostMiddleware } = require('../middleware');
+const { deletePostController } = require('../controller');
+const { deletePostMiddleware } = require('../middleware');
 
-router.post("/posts",async(req, res)=> {
-    const {titulo, img, descripcion} = req.body
-    const consulta = await createPost(titulo, img, descripcion, likes);
-    res.send("Post agregado")
-}); 
+const router = require('express').Router();
 
-
-router.post("/posts", async (req, res) => {
-    const { titulo, img, descripcion, likes } = req.body
-    await agregarPost(titulo, img, descripcion, likes)
-    res.send("Post agregado con éxito")
-})
-
-const agregarPost = async (titulo, img, descripcion, likes) => {
-    const consulta = "INSERT INTO post(titulo, img, descripcion, likes) values ($1, $2, $3, $4)"
-    const values = [titulo, img, descripcion, likes]
-    const result = await pool.query(consulta, values)
-    console.log("Post agregado")
-}
-
-router.put("/posts/:id", async(req, res)=>{
-    const id = req.params.id
-    const {titulo, img, descripcion, likes} = req.body
-    await updatePost(titulo, img, descripcion, likes, id);
-    res.send("Pelicula actualizada")
-})
-
-router.delete("/posts/:id", async (req, res)=>{
-    const {id}=req.params+await deletePost(id);
-    await deletePost(id);
-    res.send('Pelicula eliminada con exito')
-
-});
-
+router.get('/posts', getPostController);
+router.post('/posts', createNewPostMiddleware, createNewPostController);
+router.put('/posts/:id', updatePostMiddleware, updatePostController);
+router.delete('/posts/:id', deletePostMiddleware, deletePostController);
 
 module.exports = router;
